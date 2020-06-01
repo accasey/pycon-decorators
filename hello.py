@@ -15,6 +15,21 @@ def reversed_print(text: str):
     print(text[::-1].capitalize())
 
 
+def hello(func):
+    print(f"Hello {func.__name__}")
+    return func
+
+
+def outer():
+    print("Inside the outer function")
+
+    def inner():
+        print("Inside the inner function")
+
+    inner()
+    return inner
+
+
 say_hello("World", print)
 say_hello("logger", logging.warning)
 
@@ -23,3 +38,17 @@ say_hello("logger", logging.warning)
 
 
 say_hello("nocyp", reversed_print)
+
+# outer()
+
+inside = outer()
+print(outer)
+print(inside)
+
+hello(outer)() # now that hello returns the function we can invoke it immediately
+# outer returns a funcion to hello which also returns the function
+hello(inside)
+
+new_outer = hello(outer)
+print(new_outer)
+print("new_outer is outer:", new_outer is outer)
