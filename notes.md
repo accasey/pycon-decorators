@@ -1,5 +1,6 @@
 # Notes
 Geir Arne Hjelle:  @gahjelle
+https://github.com/gahjelle/decorators_tutorial
 
 ## Functions as first class objects
 Functions can be passed into other functions as an argument.
