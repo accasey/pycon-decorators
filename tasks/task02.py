@@ -7,19 +7,19 @@ GREETINGS = ["Heisann", "Hi there", "Ni!", "Wassup", "Naber", "Merhaba"]
 
 
 @trace
-def greet(name, greeting="Hello"):
+def greet(name: str, greeting: str ="Hello"):
     return f"{greeting} {name}"
 
 
 @timer
 @trace
-def random_greet(name="Emily"):
+def random_greet(name: str ="Emily"):
     greeting = random.choice(GREETINGS)
     return greet(name, greeting=greeting)
 
 
 @trace
-def greet_many(number):
+def greet_many(number: int):
     return [random_greet() for _ in range(number)]
 
 
