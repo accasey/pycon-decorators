@@ -1,5 +1,8 @@
 import functools
 import time
+from typing import Dict, Any
+
+REGISTERED: Dict[str, Any] = dict()
 
 
 def wrapper(func):
@@ -41,7 +44,9 @@ def trace(func):
         """The trace function replacing the original function"""
         args_repr = [repr(a) for a in args]
         # kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
-        kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()] # this !r is a shortcut for repr()
+        kwargs_repr = [
+            f"{k}={v!r}" for k, v in kwargs.items()
+        ]  # this !r is a shortcut for repr()
         signature = ", ".join(args_repr + kwargs_repr)
         print(f"Calling {name}({signature})")
         value = func(*args, **kwargs)
@@ -75,3 +80,9 @@ def my_orig_trace(func):
         return value
 
     return _wrapper
+
+
+def register(func):
+    """Register a function"""
+    REGISTERED[func.__name__] = func
+    return func

@@ -1,5 +1,5 @@
 from pycon_decorators import register
-from pycon_decorators import REGISTER
+from pycon_decorators import REGISTERED
 
 
 @register
