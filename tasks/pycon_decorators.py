@@ -86,3 +86,29 @@ def register(func):
     """Register a function"""
     REGISTERED[func.__name__] = func
     return func
+
+
+def count_calls(func):
+    """Count the number of calls to a function"""
+
+    @functools.wraps(func)
+    def _count_calls(*args, **kwargs):
+        """The wrapper function replacing the original"""
+        _count_calls.num_calls += 1
+        return func(*args, **kwargs)
+
+    _count_calls.num_calls = 0
+    return _count_calls
+
+
+class CountCalls:
+    """Count the number of calls to a function"""
+
+    def __init__(self, func):
+        self.func = func
+        self.num_calls = 0
+        functools.update_wrapper(self, func)
+
+    def __call__(self, *args, **kwargs):
+        self.num_calls += 1
+        return self.func(*args, **kwargs)

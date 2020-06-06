@@ -1,4 +1,4 @@
-# Notes
+# Introduction to Decorators: Power up your Python Code
 Geir Arne Hjelle:  @gahjelle
 https://github.com/gahjelle/decorators_tutorial
 
@@ -37,4 +37,29 @@ Issues so far:
     * Use `*args` and `**kwargs` to get around this. They are collected in a `list` and a `dict`.
 3. The return value from the decorated function, e.g. `dice_roll()` is being *eaten*.
     * You need to 'save' the function, rather than invoking it, to a variable and then return it.
+
+
+
+## Advanced Decorators
+
+### Keeping State
+Caching, Lookups.
+You can implement the state in the inner function.
+And initialise it just before the call to return the outer function in the decorator.
+
+
+### Decorating Classes
+The class needs to be callable, i.e. it needs to implement the special `__call__` method.
+
+You can decorate a class with a function decorator. But then this changes the class into a function.
+* This means you would lose the type, so `isinstance` will not work.
+* The decorator needs to return the same class, so the decorator needs to take in the class and return it.
+
+Something about a data class decorator introduced in Python 3.7.
+
+### Adding Arguments
+
+
+### Optional Arguments
+
 
