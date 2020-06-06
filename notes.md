@@ -55,10 +55,10 @@ You can decorate a class with a function decorator. But then this changes the cl
 * This means you would lose the type, so `isinstance` will not work.
 * The decorator needs to return the same class, so the decorator needs to take in the class and return it.
 
-Something about a data class decorator introduced in Python 3.7.
+Something about a [data class decorator](https://docs.python.org/3/library/dataclasses.html) introduced in Python 3.7.
 
 ### Adding Arguments
-
+Uses a decorator factory pattern.
 
 ### Optional Arguments
 

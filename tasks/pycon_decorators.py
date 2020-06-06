@@ -1,6 +1,7 @@
 import functools
 import time
 from typing import Dict, Any
+import pint
 
 REGISTERED: Dict[str, Any] = dict()
 
@@ -112,3 +113,18 @@ class CountCalls:
     def __call__(self, *args, **kwargs):
         self.num_calls += 1
         return self.func(*args, **kwargs)
+
+
+def use_unit(unit):
+    """Add units to return values"""
+    use_unit.ureg = pint.UnitRegistry()
+
+    def _use_unit_decorator(func):
+        @functools.wraps(func)
+        def _use_unit(*args, **kwargs):
+            return func(*args, **kwargs) * use_unit.ureg(unit)
+
+        _use_unit.unit = unit
+        return _use_unit
+    
+    return _use_unit_decorator
