@@ -34,6 +34,35 @@ def timer(func):
     return _wrapper
 
 
+def supertrace(func=None, *, logger=print):
+    def _supertrace_decorator(func):
+        """Show the trace of function calls"""
+
+        # This only happens once, instead of every time
+        name = func.__name__
+
+        @functools.wraps(func)
+        def _supertrace(*args, **kwargs):
+            """The trace function replacing the original function"""
+            args_repr = [repr(a) for a in args]
+            # kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
+            kwargs_repr = [
+                f"{k}={v!r}" for k, v in kwargs.items()
+            ]  # this !r is a shortcut for repr()
+            signature = ", ".join(args_repr + kwargs_repr)
+            logger(f"Calling {name}({signature})")
+            value = func(*args, **kwargs)
+            logger(f"{name} returned {value!r}")
+            return value
+
+        return _supertrace
+    
+    if func is None:
+        return _supertrace_decorator
+    else:
+        return _supertrace_decorator(func)
+
+
 def trace(func):
     """Show the trace of function calls"""
 
@@ -126,5 +155,5 @@ def use_unit(unit):
 
         _use_unit.unit = unit
         return _use_unit
-    
+
     return _use_unit_decorator
